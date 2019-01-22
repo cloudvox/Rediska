@@ -25,7 +25,7 @@ require_once 'Zend/Session/SaveHandler/Exception.php';
 
 /**
  * Redis save handler for Zend_Session
- * 
+ *
  * @author Ivan Shumkov
  * @package Rediska
  * @subpackage ZendFrameworkIntegration
@@ -37,14 +37,14 @@ class Rediska_Zend_Session_SaveHandler_Redis extends Rediska_Options_RediskaInst
 {
     /**
      * Sessions set
-     * 
+     *
      * @var Rediska_Zend_Session_Set
      */
     protected $_set;
 
     /**
      * Configuration
-     * 
+     *
      * @var array
      */
     protected $_options = array(
@@ -54,7 +54,7 @@ class Rediska_Zend_Session_SaveHandler_Redis extends Rediska_Options_RediskaInst
 
     /**
      * Exception class name for options
-     * 
+     *
      * @var string
      */
     protected $_optionsException = 'Zend_Session_SaveHandler_Exception';
@@ -120,7 +120,8 @@ class Rediska_Zend_Session_SaveHandler_Redis extends Rediska_Options_RediskaInst
      */
     public function read($id)
     {
-        return $this->getRediska()->get($this->_getKeyName($id));
+        $sess = $this->getRediska()->get($this->_getKeyName($id));
+        return $sess ? $sess : '';
     }
 
     /**
@@ -160,7 +161,8 @@ class Rediska_Zend_Session_SaveHandler_Redis extends Rediska_Options_RediskaInst
             $this->_deleteSetOrThrowException($e);
         }
 
-        return $this->getRediska()->delete($this->_getKeyName($id));
+        $sess = $this->getRediska()->delete($this->_getKeyName($id));
+        return true;
     }
 
     /**
