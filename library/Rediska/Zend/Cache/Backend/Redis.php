@@ -30,16 +30,19 @@ class Rediska_Zend_Cache_Backend_Redis extends Zend_Cache_Backend implements Zen
      * @var string
      */
     const FIELD_DATA      = 'd';
+
     /**
      * Defines the hash field name for the cached data mtime.
      * @var string
      */
     const FIELD_MTIME     = 'm';
+
     /**
      * Defines the hash field name for the cached item tags.
      * @var string
      */
     const FIELD_TAGS      = 't';
+
     /**
      * Defines the hash field name for the infinite item.
      * @var string
@@ -51,6 +54,7 @@ class Rediska_Zend_Cache_Backend_Redis extends Zend_Cache_Backend implements Zen
      * @var integer
      */
     const MAX_LIFETIME    = 2592000;
+
     /**
      * The options storage for this Backend
      * @var array
@@ -63,17 +67,19 @@ class Rediska_Zend_Cache_Backend_Redis extends Zend_Cache_Backend implements Zen
             'prefix_tag_ids'  => 'zc:ti:',
         )
     );
+
     /**
      * Rediska instance
      *
      * @var Rediska
      */
     protected $_rediska = Rediska::DEFAULT_NAME;
+
     /**
-     *
-     * @var Rediska_Transaction
+     * Transaction storage.
+     * @var array
      */
-    protected $_transaction;
+    protected $_transactors = array();
 
     /**
      * Contruct Zend_Cache Redis backend
@@ -99,6 +105,7 @@ class Rediska_Zend_Cache_Backend_Redis extends Zend_Cache_Backend implements Zen
             $this->setStorage($options['storage']);
         }
     }
+
     /**
      *
      * @param  array $options
@@ -123,6 +130,7 @@ class Rediska_Zend_Cache_Backend_Redis extends Zend_Cache_Backend implements Zen
         }
         return $this;
     }
+
     /**
      *
      * @param  Rediska $rediska
@@ -133,6 +141,7 @@ class Rediska_Zend_Cache_Backend_Redis extends Zend_Cache_Backend implements Zen
         $this->_rediska = $rediska;
         return $this;
     }
+
     /**
      *
      * @return Rediska
@@ -147,6 +156,7 @@ class Rediska_Zend_Cache_Backend_Redis extends Zend_Cache_Backend implements Zen
 
         return $this->_rediska;
     }
+
     /**
      *
      * @param  string $name
@@ -190,6 +200,7 @@ class Rediska_Zend_Cache_Backend_Redis extends Zend_Cache_Backend implements Zen
         $this->getRediska()->setSerializerAdapter('toString');
         $result = $this->_execTransactions();
         $this->getRediska()->getSerializer()->setAdapter($oldSerializaerAdapter);
+
         if(count($result) == 1){
             if(null === ($result = array_shift($result))){
                 return false;
@@ -229,9 +240,12 @@ class Rediska_Zend_Cache_Backend_Redis extends Zend_Cache_Backend implements Zen
      */
     public function save($data, $id, $tags = array(), $specificLifetime = false)
     {
-        if(!is_array($tags)) $tags = array($tags);
+        if (!is_array($tags)) {
+            $tags = (array) $tags;
+        }
 
-        $lifetime = $this->getLifetime($specificLifetime);
+        try {
+            $lifetime = $this->getLifetime($specificLifetime);
 
         $oldTags = explode(
             ',', $this->getRediska()->getFromHash(
@@ -300,6 +314,7 @@ class Rediska_Zend_Cache_Backend_Redis extends Zend_Cache_Backend implements Zen
                 ->deleteFromSet($this->_options['storage']['prefix_tag_ids'] . $tag, $id);
         }
         $result = $this->_execTransactions();
+
         if(count($result)){
             return array_shift($result);
         } else {
@@ -353,6 +368,7 @@ class Rediska_Zend_Cache_Backend_Redis extends Zend_Cache_Backend implements Zen
         }
         return $this->_collectGarbage();
     }
+
     /**
      *
      * @param  array $ids
@@ -377,6 +393,7 @@ class Rediska_Zend_Cache_Backend_Redis extends Zend_Cache_Backend implements Zen
         $ids = $this->getIdsNotMatchingTags($tags);
         $this->_removeIds($ids);
     }
+
     /**
      * @param array $tags
      */
@@ -587,6 +604,7 @@ class Rediska_Zend_Cache_Backend_Redis extends Zend_Cache_Backend implements Zen
             'get_list'           => true
         );
     }
+
     /**
      * Cleans up expired keys and list members
      * @return boolean
@@ -606,8 +624,8 @@ class Rediska_Zend_Cache_Backend_Redis extends Zend_Cache_Backend implements Zen
                         $exists[$id] = $this->getRediska()
                             ->exists($this->_options['storage']['prefix_key'].$id);
                     }
-                    if(!$exists[$id]) {
-                        $expired[] = $id;
+                    if (!count($expired)) {
+                        continue;
                     }
                 }
                 if(!count($expired)) continue;
@@ -631,6 +649,7 @@ class Rediska_Zend_Cache_Backend_Redis extends Zend_Cache_Backend implements Zen
             return false;
         }
     }
+
     /**
      * @param $item
      * @param $index
@@ -650,6 +669,7 @@ class Rediska_Zend_Cache_Backend_Redis extends Zend_Cache_Backend implements Zen
         array_walk($ids, array($this, '_preprocess'), $this->_options['storage']['prefix_key']);
         return $ids;
     }
+
     /**
      * @param $tags
      * @return array
