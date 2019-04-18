@@ -171,7 +171,9 @@ class Rediska_Commands
     {
         $lowerName = self::_getCommandLowerNameAndThrowIfNotPresent($name);
 
-        return new self::$_commands[$lowerName]($rediska, $name, $arguments);
+        $commandClassName = self::$_commands[$lowerName];
+
+        return new $commandClassName($rediska, $name, $arguments);
     }
 
     /**
