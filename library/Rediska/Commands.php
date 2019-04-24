@@ -169,6 +169,10 @@ class Rediska_Commands
      */
     public static function get(Rediska $rediska, $name, $arguments)
     {
+        error_log("- - - - - - - - - - - - - - - - - - - - - -");
+        error_log("Tristan Marshall : Inside rediska get command function");
+        error_log("- - - - - - - - - - - - - - - - - - - - - -");
+
         $lowerName = self::_getCommandLowerNameAndThrowIfNotPresent($name);
 
         $commandClassName = self::$_commands[$lowerName];
