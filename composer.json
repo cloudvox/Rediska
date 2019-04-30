@@ -20,7 +20,7 @@
         }
     ],
     "require":{},
-    "require-dev":{
+    "require-dev" :{
         "zendframework/zendframework1":"^1.12"
     },
     "autoload":{
