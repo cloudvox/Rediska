@@ -1,8 +1,8 @@
 <?php
-
+// phpcs:disable
 /**
  * Rediska pipeline
- * 
+ *
  * @author Ivan Shumkov
  * @package Rediska
  * @version @package_version@
@@ -13,42 +13,42 @@ class Rediska_Pipeline
 {
     /**
      * Rediska instance
-     * 
+     *
      * @var Rediska
      */
     protected $_rediska;
 
     /**
      * Rediska specified connection instance
-     * 
+     *
      * @var Rediska_Connection_Specified
      */
     protected $_specifiedConnection;
 
     /**
      * Default pipeline connection
-     * 
+     *
      * @var Rediska_Connection
      */
     protected $_defaultConnection;
-    
+
     /**
      * One time connection
-     * 
+     *
      * @var Rediska_Connection
      */
     protected $_oneTimeConnection;
 
     /**
      * Commands buffer
-     * 
+     *
      * @var array
      */
     protected $_commands = array();
 
     /**
      * Constructor
-     * 
+     *
      * @param Rediska                      $rediska             Rediska instance
      * @param Rediska_Connection_Specified $specifiedConnection Specified connection
      */
@@ -61,7 +61,7 @@ class Rediska_Pipeline
 
     /**
      * Execute pipelined commands
-     * 
+     *
      * @return array
      */
     public function execute()
@@ -310,7 +310,7 @@ class Rediska_Pipeline
     public function setAndExpire($key, $value, $seconds) { $args = func_get_args(); return $this->_addCommand('setAndExpire', $args); }
 
     /**
-     * Atomic set value and return old 
+     * Atomic set value and return old
      *
      * @param string $key   Key name
      * @param mixed  $value Value
@@ -445,7 +445,7 @@ class Rediska_Pipeline
      * @param integer $start[optional]             Start index. For default is begin of list
      * @param integer $end[optional]               End index. For default is end of list
      * @param boolean $responseIterator[optional]  If true - command return iterator which read from socket buffer.
-     *                                             Important: new connection will be created 
+     *                                             Important: new connection will be created
      * @return Rediska_Pipeline
      */
     public function getList($key, $start = 0, $end = -1, $responseIterator = false) { $args = func_get_args(); return $this->_addCommand('getList', $args); }
@@ -507,7 +507,7 @@ class Rediska_Pipeline
     public function shiftFromListBlocking($keyOrKeys, $timeout = 0) { $args = func_get_args(); return $this->_addCommand('shiftFromListBlocking', $args); }
 
     /**
-     * Return and remove the last element of the List at key 
+     * Return and remove the last element of the List at key
      *
      * @param string           $name       Key name
      * @param string[optional] $pushToName If not null - push value to another key.
@@ -632,7 +632,7 @@ class Rediska_Pipeline
      *
      * @param string  $key Key name
      * @param boolean $responseIterator[optional]  If true - command return iterator which read from socket buffer.
-     *                                             Important: new connection will be created 
+     *                                             Important: new connection will be created
      * @return Rediska_Pipeline
      */
     public function getSet($key, $responseIterator = false) { $args = func_get_args(); return $this->_addCommand('getSet', $args); }
@@ -675,7 +675,7 @@ class Rediska_Pipeline
      * @param integer $end[optional]               End index. For default is end of set.
      * @param boolean $revert[optional]            Revert elements (not used in sorting). For default is false
      * @param boolean $responseIterator[optional]  If true - command return iterator which read from socket buffer.
-     *                                             Important: new connection will be created 
+     *                                             Important: new connection will be created
      * @return Rediska_Pipeline
      */
     public function getSortedSet($key, $withScores = false, $start = 0, $end = -1, $revert = false, $responseIterator = false) { $args = func_get_args(); return $this->_addCommand('getSortedSet', $args); }
@@ -934,5 +934,5 @@ class Rediska_Pipeline
      * @return Rediska_Pipeline
      */
     public function slaveOf($aliasOrConnection) { $args = func_get_args(); return $this->_addCommand('slaveOf', $args); }
-
 }
+// phpcs:enable

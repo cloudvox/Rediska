@@ -8,9 +8,9 @@
  <summary>A PHP API wrapper for Redis.</summary>
  <description>Rediska (radish in Russian) - PHP client for Redis.
 
-Redis is an advanced fast key-value database written in C. It can be used like memcached, in front of a traditional 
-database, or on its own thanks to the fact that the in-memory datasets are not volatile but instead persisted on disk. 
-One of the cool features is that you can store not only strings, but lists and sets with atomic operations to push/pop 
+Redis is an advanced fast key-value database written in C. It can be used like memcached, in front of a traditional
+database, or on its own thanks to the fact that the in-memory datasets are not volatile but instead persisted on disk.
+One of the cool features is that you can store not only strings, but lists and sets with atomic operations to push/pop
 elements.</description>
  <lead>
   <name>Ivan Shumkov</name>
@@ -55,78 +55,6 @@ This is an alpha release, see README.markdown for examples.
    <dir name="benchmarks">
     <file baseinstalldir="/" name="keydistributors.php" role="doc" />
    </dir> <!-- /benchmarks -->
-   <dir name="examples">
-    <dir name="retwitter">
-     <dir name="application">
-      <dir name="configs">
-       <file baseinstalldir="/" name="application.ini" role="doc" />
-      </dir> <!-- /examples/retwitter/application/configs -->
-      <dir name="controllers">
-       <file baseinstalldir="/" name="ErrorController.php" role="doc" />
-       <file baseinstalldir="/" name="IndexController.php" role="doc" />
-       <file baseinstalldir="/" name="PostController.php" role="doc" />
-       <file baseinstalldir="/" name="UserController.php" role="doc" />
-      </dir> <!-- /examples/retwitter/application/controllers -->
-      <dir name="forms">
-       <file baseinstalldir="/" name="Post.php" role="doc" />
-       <file baseinstalldir="/" name="User.php" role="doc" />
-       <file baseinstalldir="/" name="UserLogin.php" role="doc" />
-      </dir> <!-- /examples/retwitter/application/forms -->
-      <dir name="models">
-       <file baseinstalldir="/" name="Feed.php" role="doc" />
-       <file baseinstalldir="/" name="Followers.php" role="doc" />
-       <file baseinstalldir="/" name="Following.php" role="doc" />
-       <file baseinstalldir="/" name="Post.php" role="doc" />
-       <file baseinstalldir="/" name="User.php" role="doc" />
-       <file baseinstalldir="/" name="UserPosts.php" role="doc" />
-       <file baseinstalldir="/" name="Users.php" role="doc" />
-      </dir> <!-- /examples/retwitter/application/models -->
-      <dir name="views">
-       <dir name="layouts">
-        <file baseinstalldir="/" name="default.phtml" role="doc" />
-       </dir> <!-- /examples/retwitter/application/views/layouts -->
-       <dir name="scripts">
-        <dir name="error">
-         <file baseinstalldir="/" name="error.phtml" role="doc" />
-        </dir> <!-- /examples/retwitter/application/views/scripts/error -->
-        <dir name="index">
-         <file baseinstalldir="/" name="index.phtml" role="doc" />
-        </dir> <!-- /examples/retwitter/application/views/scripts/index -->
-        <dir name="post">
-         <file baseinstalldir="/" name="index.phtml" role="doc" />
-         <file baseinstalldir="/" name="my.phtml" role="doc" />
-         <file baseinstalldir="/" name="new.phtml" role="doc" />
-         <file baseinstalldir="/" name="_list.phtml" role="doc" />
-        </dir> <!-- /examples/retwitter/application/views/scripts/post -->
-        <dir name="user">
-         <file baseinstalldir="/" name="followers.phtml" role="doc" />
-         <file baseinstalldir="/" name="index.phtml" role="doc" />
-         <file baseinstalldir="/" name="login.phtml" role="doc" />
-         <file baseinstalldir="/" name="signup.phtml" role="doc" />
-         <file baseinstalldir="/" name="_list.phtml" role="doc" />
-        </dir> <!-- /examples/retwitter/application/views/scripts/user -->
-       </dir> <!-- /examples/retwitter/application/views/scripts -->
-      </dir> <!-- /examples/retwitter/application/views -->
-      <file baseinstalldir="/" name="Bootstrap.php" role="doc" />
-     </dir> <!-- /examples/retwitter/application -->
-     <dir name="docs">
-      <file baseinstalldir="/" name="README.txt" role="doc" />
-     </dir> <!-- /examples/retwitter/docs -->
-     <dir name="public">
-      <file baseinstalldir="/" name="index.php" role="doc" />
-     </dir> <!-- /examples/retwitter/public -->
-     <dir name="tests">
-      <dir name="application">
-       <file baseinstalldir="/" name="bootstrap.php" role="doc" />
-      </dir> <!-- /examples/retwitter/tests/application -->
-      <dir name="library">
-       <file baseinstalldir="/" name="bootstrap.php" role="doc" />
-      </dir> <!-- /examples/retwitter/tests/library -->
-      <file baseinstalldir="/" name="phpunit.xml" role="doc" />
-     </dir> <!-- /examples/retwitter/tests -->
-     <file baseinstalldir="/" name="README.txt" role="doc" />
-    </dir> <!-- /examples/retwitter -->
-   </dir> <!-- /examples -->
    <dir name="library">
     <dir name="Rediska">
      <dir name="Command">

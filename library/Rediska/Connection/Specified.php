@@ -1,8 +1,8 @@
 <?php
-
+// phpcs:disable
 /**
  * Rediska specified connection
- * 
+ *
  * @author Ivan Shumkov
  * @package Rediska
  * @subpackage Connection
@@ -14,14 +14,14 @@ class Rediska_Connection_Specified
 {
     /**
      * Rediska instance
-     * 
+     *
      * @var Rediska
      */
     protected $_rediska;
 
     /**
      * Specified connection
-     * 
+     *
      * @var Rediska_Connection
      */
     protected $_connection;
@@ -33,7 +33,7 @@ class Rediska_Connection_Specified
 
     /**
      * Magic methdo for execute command
-     * 
+     *
      * @param $name
      * @param $args
      * @return mixed
@@ -49,20 +49,20 @@ class Rediska_Connection_Specified
 
     /**
      * Set connection
-     * 
+     *
      * @param $connection
      * @return Rediska_Connection_Specified
      */
     public function setConnection(Rediska_Connection $connection)
     {
         $this->_connection = $connection;
-        
+
         return $this;
     }
 
     /**
      * Get connection
-     * 
+     *
      * @return Rediska_Connection
      */
     public function getConnection()
@@ -72,13 +72,13 @@ class Rediska_Connection_Specified
 
     /**
      * Reset connection
-     * 
+     *
      * @return Rediska_Connection
      */
     public function resetConnection()
     {
         $this->_connection = null;
-        
+
         return $this;
     }
 
@@ -235,7 +235,7 @@ class Rediska_Connection_Specified
     public function setAndExpire($key, $value, $seconds) { $args = func_get_args(); return $this->_executeCommand('setAndExpire', $args); }
 
     /**
-     * Atomic set value and return old 
+     * Atomic set value and return old
      *
      * @param string $key   Key name
      * @param mixed  $value Value
@@ -370,7 +370,7 @@ class Rediska_Connection_Specified
      * @param integer $start[optional]             Start index. For default is begin of list
      * @param integer $end[optional]               End index. For default is end of list
      * @param boolean $responseIterator[optional]  If true - command return iterator which read from socket buffer.
-     *                                             Important: new connection will be created 
+     *                                             Important: new connection will be created
      * @return array
      */
     public function getList($key, $start = 0, $end = -1, $responseIterator = false) { $args = func_get_args(); return $this->_executeCommand('getList', $args); }
@@ -432,7 +432,7 @@ class Rediska_Connection_Specified
     public function shiftFromListBlocking($keyOrKeys, $timeout = 0) { $args = func_get_args(); return $this->_executeCommand('shiftFromListBlocking', $args); }
 
     /**
-     * Return and remove the last element of the List at key 
+     * Return and remove the last element of the List at key
      *
      * @param string           $name       Key name
      * @param string[optional] $pushToName If not null - push value to another key.
@@ -557,7 +557,7 @@ class Rediska_Connection_Specified
      *
      * @param string  $key Key name
      * @param boolean $responseIterator[optional]  If true - command return iterator which read from socket buffer.
-     *                                             Important: new connection will be created 
+     *                                             Important: new connection will be created
      * @return array
      */
     public function getSet($key, $responseIterator = false) { $args = func_get_args(); return $this->_executeCommand('getSet', $args); }
@@ -600,7 +600,7 @@ class Rediska_Connection_Specified
      * @param integer $end[optional]               End index. For default is end of set.
      * @param boolean $revert[optional]            Revert elements (not used in sorting). For default is false
      * @param boolean $responseIterator[optional]  If true - command return iterator which read from socket buffer.
-     *                                             Important: new connection will be created 
+     *                                             Important: new connection will be created
      * @return array
      */
     public function getSortedSet($key, $withScores = false, $start = 0, $end = -1, $revert = false, $responseIterator = false) { $args = func_get_args(); return $this->_executeCommand('getSortedSet', $args); }
@@ -862,3 +862,4 @@ class Rediska_Connection_Specified
     public function slaveOf($aliasOrConnection) { $args = func_get_args(); return $this->_executeCommand('slaveOf', $args); }
 
 }
+// phpcs:enable
