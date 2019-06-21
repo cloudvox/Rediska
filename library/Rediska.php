@@ -1,13 +1,13 @@
 <?php
-
+// phpcs:disable
 // Register autoloader
 require_once dirname(__FILE__) . '/Rediska/Autoloader.php';
 Rediska_Autoloader::register();
 
 /**
- * Rediska (radish on russian) - PHP client 
+ * Rediska (radish on russian) - PHP client
  * for key-value database Redis (http://code.google.com/p/redis)
- * 
+ *
  * @author Ivan Shumkov
  * @package Rediska
  * @version @package_version@
@@ -18,14 +18,14 @@ class Rediska extends Rediska_Options
 {
     /**
      * End of line
-     * 
+     *
      * @var string
      */
     const EOL = "\r\n";
 
     /**
      * Current stable Redis version
-     * 
+     *
      * @var string
      */
     const STABLE_REDIS_VERSION = '2.2.1';
@@ -39,28 +39,28 @@ class Rediska extends Rediska_Options
 
     /**
      * Connections
-     * 
+     *
      * @var array
      */
     protected $_connections = array();
 
     /**
      * Proxy object for specified connection
-     * 
+     *
      * @var Rediska_Connection_Specified
      */
     protected $_specifiedConnection;
 
     /**
-     * Object for distribution keys by servers 
-     * 
+     * Object for distribution keys by servers
+     *
      * @var Rediska_KeyDistributor_Interface
      */
     protected $_keyDistributor;
 
     /**
      * Serializer object
-     * 
+     *
      * @var Rediska_Serializer
      */
     protected $_serializer;
@@ -121,9 +121,9 @@ class Rediska extends Rediska_Options
 
     /**
      * Contruct Rediska
-     * 
+     *
      * @param array $options Options
-     * 
+     *
      * name              - Rediska instance name. See Rediska_Manager
      * addToManager      - Add instance to Rediska_Manager
      * namespace         - Key names prefix
@@ -148,9 +148,9 @@ class Rediska extends Rediska_Options
      *                         * Array with key 'name' wich value is name of profiler ('stream' for example)
      *                           or class name wich implements Rediska_Profiler_Interface. Other keys passed
      *                           as options to profiler
-     * 
+     *
      */
-    public function __construct(array $options = array()) 
+    public function __construct(array $options = array())
     {
         parent::__construct($options);
 
@@ -186,12 +186,12 @@ class Rediska extends Rediska_Options
 
     /**
      * Set servers array:
-     * 
+     *
      * array(
      *     array('host' => '127.0.0.1', 'port' => 6379, 'weight' => 1),
      *     array('host' => '127.0.0.1', 'port' => 6380, 'weight' => 2)
      * )
-     * 
+     *
      * @param array $servers
      * @return Rediska
      */
@@ -201,7 +201,7 @@ class Rediska extends Rediska_Options
         foreach($servers as $alias => $serverOptions) {
             if (!isset($serverOptions['alias']) && is_string($alias)) {
                 $serverOptions['alias'] = $alias;
-            } 
+            }
 
             $this->addServer(
                 isset($serverOptions['host']) ? $serverOptions['host'] : Rediska_Connection::DEFAULT_HOST,
@@ -214,7 +214,7 @@ class Rediska extends Rediska_Options
 
     /**
      * Add server
-     * 
+     *
      * @throws Rediska_Exception
      * @param string $host Hostname or IP
      * @param integer $port Port
@@ -275,7 +275,7 @@ class Rediska extends Rediska_Options
 
     /**
      * Get Rediska connection instance by key name
-     * 
+     *
      * @throws Rediska_Connection_Exception
      * @param string $name Key name
      * @return Rediska_Connection
@@ -297,7 +297,7 @@ class Rediska extends Rediska_Options
 
     /**
      * Get connection by alias
-     * 
+     *
      * @param string $alias
      * @return Rediska_Connection
      */
@@ -312,7 +312,7 @@ class Rediska extends Rediska_Options
 
     /**
      * Get all Rediska connection instances
-     * 
+     *
      * @throws Rediska_Connection_Exception
      * @return array
      */
@@ -327,7 +327,7 @@ class Rediska extends Rediska_Options
 
     /**
      * Chain method to work with keys on specified by alias server
-     * 
+     *
      * @param $aliasOrConnection Alias or Rediska_Connection object
      * @return Rediska_Connection_Specified
      */
@@ -347,7 +347,7 @@ class Rediska extends Rediska_Options
 
     /**
      * Create pipeline
-     * 
+     *
      * @return Rediska_Pipeline
      */
     public function pipeline()
@@ -357,7 +357,7 @@ class Rediska extends Rediska_Options
 
     /**
      * Create transaction
-     * 
+     *
      * @param $aliasOrConnection Server alias or Rediska_Connection object
      * @return Rediska_Transaction
      */
@@ -383,7 +383,7 @@ class Rediska extends Rediska_Options
 
     /**
      * Subscribe to PubSub channel or channels
-     * 
+     *
      * @param string|array      $channelOrChannels
      * @param integer[optional] $timeout
      * @return Rediska_PubSub_Channel
@@ -441,7 +441,7 @@ class Rediska extends Rediska_Options
     /**
      * Set key distributor.
      * See options description for more information.
-     * 
+     *
      * @throws Rediska_Exception
      * @param string $name Object or name of key distributor (crc32, consistentHashing or you personal class)
      * @return rediska
@@ -477,7 +477,7 @@ class Rediska extends Rediska_Options
 
     /**
      * Set Rediska serializer adapter
-     * 
+     *
      * @param mixed $serializer
      * @return Rediska
      */
@@ -491,7 +491,7 @@ class Rediska extends Rediska_Options
 
     /**
      * Get Rediska serializer
-     * 
+     *
      * @return Rediska_Serializer
      */
     public function getSerializer()
@@ -513,7 +513,7 @@ class Rediska extends Rediska_Options
     {
         $this->_options['profiler'] = $profilerOrOptions;
         $this->_profiler = null;
-        
+
         return $this;
     }
 
@@ -587,7 +587,7 @@ class Rediska extends Rediska_Options
      * @return mixed
      */
     protected function _executeCommand($name, $args = array())
-    {        
+    {
         $this->_specifiedConnection->resetConnection();
 
         $command = Rediska_Commands::get($this, $name, $args);
@@ -804,7 +804,7 @@ class Rediska extends Rediska_Options
     public function setAndExpire($key, $value, $seconds) { $args = func_get_args(); return $this->_executeCommand('setAndExpire', $args); }
 
     /**
-     * Atomic set value and return old 
+     * Atomic set value and return old
      *
      * @param string $key   Key name
      * @param mixed  $value Value
@@ -939,7 +939,7 @@ class Rediska extends Rediska_Options
      * @param integer $start[optional]             Start index. For default is begin of list
      * @param integer $end[optional]               End index. For default is end of list
      * @param boolean $responseIterator[optional]  If true - command return iterator which read from socket buffer.
-     *                                             Important: new connection will be created 
+     *                                             Important: new connection will be created
      * @return array
      */
     public function getList($key, $start = 0, $end = -1, $responseIterator = false) { $args = func_get_args(); return $this->_executeCommand('getList', $args); }
@@ -1001,7 +1001,7 @@ class Rediska extends Rediska_Options
     public function shiftFromListBlocking($keyOrKeys, $timeout = 0) { $args = func_get_args(); return $this->_executeCommand('shiftFromListBlocking', $args); }
 
     /**
-     * Return and remove the last element of the List at key 
+     * Return and remove the last element of the List at key
      *
      * @param string           $name       Key name
      * @param string[optional] $pushToName If not null - push value to another key.
@@ -1126,7 +1126,7 @@ class Rediska extends Rediska_Options
      *
      * @param string  $key Key name
      * @param boolean $responseIterator[optional]  If true - command return iterator which read from socket buffer.
-     *                                             Important: new connection will be created 
+     *                                             Important: new connection will be created
      * @return array
      */
     public function getSet($key, $responseIterator = false) { $args = func_get_args(); return $this->_executeCommand('getSet', $args); }
@@ -1169,7 +1169,7 @@ class Rediska extends Rediska_Options
      * @param integer $end[optional]               End index. For default is end of set.
      * @param boolean $revert[optional]            Revert elements (not used in sorting). For default is false
      * @param boolean $responseIterator[optional]  If true - command return iterator which read from socket buffer.
-     *                                             Important: new connection will be created 
+     *                                             Important: new connection will be created
      * @return array
      */
     public function getSortedSet($key, $withScores = false, $start = 0, $end = -1, $revert = false, $responseIterator = false) { $args = func_get_args(); return $this->_executeCommand('getSortedSet', $args); }
@@ -1429,5 +1429,5 @@ class Rediska extends Rediska_Options
      * @return mixed
      */
     public function slaveOf($aliasOrConnection) { $args = func_get_args(); return $this->_executeCommand('slaveOf', $args); }
-
 }
+// phpcs:enable

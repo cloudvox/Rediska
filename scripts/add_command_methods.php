@@ -83,7 +83,7 @@ foreach(Rediska_Commands::getList() as $name => $class) {
     if ($return == 'mixed') {
         getReturn($classReflection, 'parseResponses');
     }
-
+    // phpcs:disable
     // Rediska
     $createDocBlock = preg_replace('/@return .+/', "@return $return", $createDocBlock);
     $rediskaMethods .= "\n    $createDocBlock
@@ -103,8 +103,8 @@ foreach(Rediska_Commands::getList() as $name => $class) {
     $createDocBlock = preg_replace('/@return .+/', "@return Rediska_Pipeline", $createDocBlock);
     $pipelineMethods .= "\n    $createDocBlock
     public function $name($params { \$args = func_get_args(); return \$this->_addCommand('$name', \$args); }\n";
-
     $count++;
+    // phpcs:enable
 }
 
 updateMethods(REDISKA, $rediskaMethods);
